@@ -1,32 +1,16 @@
-# Student Record Management with List, Tuple, Dictionary and CSV
-import csv
+# IoT Sensor Data Analysis using NumPy
+import numpy as np
 
-students = [
-    {"RollNo": "101", "Name": "Anitha", "Department": "CSE", "Mark": 86},
-    {"RollNo": "102", "Name": "Bala", "Department": "CSE", "Mark": 91},
-    {"RollNo": "103", "Name": "Chitra", "Department": "ECE", "Mark": 78}
-]
+sensor_data = np.array([24.5, 25.1, 26.3, 27.0, 28.2,
+                        29.1, 27.8, 26.5, 25.7, 30.2])
 
-# Tuple example: fixed course details
-course = ("Python", 4)
-print("Course Tuple:", course)
+print("Sensor Data:", sensor_data)
+print("Mean       :", round(np.mean(sensor_data), 2))
+print("Median     :", round(np.median(sensor_data), 2))
+print("Minimum    :", np.min(sensor_data))
+print("Maximum    :", np.max(sensor_data))
+print("Std. Dev.  :", round(np.std(sensor_data), 2))
 
-# Write text file
-with open("students.txt", "w") as file:
-    for student in students:
-        file.write(str(student) + "\n")
-
-# Write CSV file
-with open("students.csv", "w", newline="") as file:
-    fields = ["RollNo", "Name", "Department", "Mark"]
-    writer = csv.DictWriter(file, fieldnames=fields)
-    writer.writeheader()
-    writer.writerows(students)
-
-# Read CSV file
-print("\n--- Records from CSV ---")
-with open("students.csv", "r") as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        print(row["RollNo"], row["Name"],
-              row["Department"], row["Mark"])
+threshold = 28.0
+high_values = sensor_data[sensor_data > threshold]
+print("Values above", threshold, ":", high_values)
